@@ -3,47 +3,14 @@ import { createReducer } from '@reduxjs/toolkit'
 import {combineReducers} from "redux";
 
 
-
-// // Записываем стартовые значения контактов в localStorage
+// Записываем стартовые значения контактов в localStorage
 // localStorage.setItem('contactsLocalSt_db',   JSON.stringify( [...db] ) );
  
-
-// const initialState ={
-//     contacts: JSON.parse(localStorage.getItem('contactsLocalSt_db')),
-//     filterValue:'',
-// }
-
-       
-// // ------------- Redux Toolkit -------------
-// let state = initialState;
-
-//     export const reducer = createReducer ( state, {
-//     'contact/add':  (state, action) => {
-//                         return {...state, contacts: [...state.contacts, action.payload] } 
-//                     },
-//     'contact/delete': (state, action) => {
-//           //Удаляем в localStorage выбранный контакт 
-//           localStorage.setItem('contactsLocalSt_db',   JSON.stringify( [...state.contacts.filter (oneContact =>{ return oneContact.id !== action.payload })] ) );
-//                         return {...state,
-//                             contacts: [...state.contacts.filter (oneContact =>{ return oneContact.id !== action.payload })]
-//                         };
-//                     },
-//     'filter/value': (state, action) => {
-//                     return {...state,
-//                         filterValue: action.payload
-//                     } 
-//      }
-// } )
-
-
-
-///////////////////////---------
-// Записываем стартовые значения контактов в localStorage
-localStorage.setItem('contactsLocalSt_db',   JSON.stringify( [...db] ) );
- 
-
-const initialState = JSON.parse(localStorage.getItem('contactsLocalSt_db'));
+// Инициализируем стартовые значения данными из локал сториджа
+// const initialState = JSON.parse(localStorage.getItem('contactsLocalSt_db'));
     
+const initialState = db;
+console.log ('!!!! initialState ', initialState)
 
 
 let state = initialState;
