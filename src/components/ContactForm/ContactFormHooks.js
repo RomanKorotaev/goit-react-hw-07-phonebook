@@ -7,7 +7,7 @@ import state from '../../redux/store'
 
 import shortid from 'shortid'
 
-function ContactFormHooks ({onFormSubmit, onAdd, contacts2}) {
+function ContactFormHooks ({ onAdd, contacts}) {
  
     const [name, setName] =useState ('');
     const [number, setNumber] =useState ('');
@@ -19,7 +19,7 @@ function ContactFormHooks ({onFormSubmit, onAdd, contacts2}) {
     //из нового полученного объекта с новым контактом берём name переводим в нижний регистр и ищем такие же имена в существующем списке контактов
     
     const  normalizedNewName = data.name.toLowerCase ();
-    const tmpArray = contacts2.filter(contact => contact.name.toLowerCase().includes(normalizedNewName));
+    const tmpArray = contacts.filter(contact => contact.name.toLowerCase().includes(normalizedNewName));
 
     if (tmpArray.length!==0) {
       alert (`${tmpArray[0].name} is already in contacts`)
@@ -60,7 +60,7 @@ function ContactFormHooks ({onFormSubmit, onAdd, contacts2}) {
     }
 
     // Передаём объект с новыми данными из формы как пареметр функции - для передачи в Арр (поднятие состояния)
-    onFormSubmit(data);
+    // onFormSubmit(data);
     
     if ( isExist(data) ) {
       // если функция isExist возврвтит true, то такой контакт уже есть и мы сразу выходим, ничего не добавляем в список
@@ -129,7 +129,7 @@ function ContactFormHooks ({onFormSubmit, onAdd, contacts2}) {
 
 
 const mapStateToProps = state => { 
-  return {contacts2: state.contacts}
+  return {contacts: state.contacts}
 }
 
 const mapDispatchToProps = dispatch => {

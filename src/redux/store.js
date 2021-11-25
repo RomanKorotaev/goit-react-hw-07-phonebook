@@ -1,5 +1,4 @@
-import {reducer, rootReducer} from './reducer'
-// import {createStore} from "redux";
+import { rootReducer} from './reducer'
 import { configureStore, combineReducers, getDefaultMiddleware } from '@reduxjs/toolkit';
 import logger from 'redux-logger'
 import {
@@ -29,16 +28,10 @@ const middleware = [
     logger,
   ];
 
-  // const persistedReducer = persistReducer(persistConfig, reducer)
-
   const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-// const store=  createStore (reducer);
-
 const store = configureStore ({
-    reducer:  persistedReducer,
-    // reducer: reducer,
-    
+    reducer:  persistedReducer,   
     middleware,
     devTools: process.env.NODE_ENV === 'development',
 });

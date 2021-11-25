@@ -2,7 +2,7 @@ import React from "react";
 import s from "./ContactsList.module.css";
 import PropTypes from 'prop-types';
 import ContactHooks from '../Contact/ContactHooks'
-import state from '../../redux/store'
+// import state from '../../redux/store'
 
 import {deleteContactMY} from '../../redux/actions'
 import { connect } from "react-redux";
