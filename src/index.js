@@ -14,11 +14,11 @@ console.log (" store : ", store );
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
-    <Provider store={store.store}>
-      <PersistGate loading={null} persistor={store.persistor}>
+    <Provider store={store}>
+    {/* <Provider store={store.store}> */}
+      {/* <PersistGate loading={null} persistor={store.persistor}> */}
         <AppHooks/>
-      </PersistGate>
+      {/* </PersistGate> */}
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

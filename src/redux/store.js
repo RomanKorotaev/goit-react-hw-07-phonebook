@@ -13,10 +13,15 @@ import {
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
  
 
-const persistConfig = {
-    key: 'hello',
-    storage,
-  }
+// const persistConfig = {
+//     key: 'hello',
+//     storage,
+//   }
+
+const myMiddleware = store => next => action => {
+  console.log ('МОЯ ПРОСЛОЙКА!', action);
+next(action);
+}
 
 
 const middleware = [
@@ -26,12 +31,14 @@ const middleware = [
       },
     }),
     logger,
+    myMiddleware
   ];
 
-  const persistedReducer = persistReducer(persistConfig, rootReducer)
+  // const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore ({
-    reducer:  persistedReducer,   
+    // reducer:  persistedReducer,   
+    reducer: rootReducer,
     middleware,
     devTools: process.env.NODE_ENV === 'development',
 });
@@ -41,4 +48,7 @@ console.log (' Лог store.getState()  после Свича: ', store.getState
 
 let persistor = persistStore(store);
 
-export default { store, persistor};
+// export default { store, persistor};
+
+
+export default  store
