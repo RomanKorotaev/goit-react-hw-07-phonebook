@@ -40,19 +40,32 @@ const deleteContact = contactId => dispatch => {
 }
 
 
-const fetchContacts = () => dispatch => {
+// const fetchContacts = () => dispatch => {
+//     dispatch (fetchContactReguest() );
+
+//     axios
+//     .get ('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts')
+//     .then(({ data }) => {
+//         console.log ("DATA из fetchContacts ", data)
+//     // СОСТОЯНИЕ В СЛУЧАЕ УСПЕХА
+//          dispatch ( fetchContactSuccess (data) )
+//         }
+//      )
+//      // СОСТОЯНИЕ В СЛУЧАЕ ОШИБКИ
+//     .catch(error => dispatch( fetchContactError ( error ) ) );
+// }
+
+// Вариант вышеуказанной функции с фетчем, с синтаксисом async/await
+const fetchContacts = () => async  dispatch => {
     dispatch (fetchContactReguest() );
 
-    axios
-    .get ('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts')
-    .then(({ data }) => {
-        console.log ("DATA из fetchContacts ", data)
-    // СОСТОЯНИЕ В СЛУЧАЕ УСПЕХА
-         dispatch ( fetchContactSuccess (data) )
-        }
-     )
-     // СОСТОЯНИЕ В СЛУЧАЕ ОШИБКИ
-    .catch(error => dispatch( fetchContactError ( error ) ) );
+    try {
+    const {data} = await  axios.get ('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts')
+    dispatch ( fetchContactSuccess (data) )
+
+    } catch (error) {
+        dispatch( fetchContactError ( error ) );
+    }
 }
 
 
