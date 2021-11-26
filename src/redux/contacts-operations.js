@@ -6,9 +6,9 @@ import { addContactReguest,
     deleteContactReguest,
     deleteContactSuccess,
     deleteContactError,
-    // fetchContactReguest,
-    // fetchContactSuccess,
-    // fetchContactError
+    fetchContactReguest,
+    fetchContactSuccess,
+    fetchContactError
  }  from './actions'
 
 
@@ -39,14 +39,26 @@ const deleteContact = contactId => dispatch => {
         .catch (error => dispatch (deleteContactError (error)) )
 }
 
+
+const fetchContacts = () => dispatch => {
+    dispatch (fetchContactReguest() );
+
+    axios
+    .get ('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts')
+    .then(({ data }) => {
+        console.log ("DATA из fetchContacts ", data)
+    // СОСТОЯНИЕ В СЛУЧАЕ УСПЕХА
+         dispatch ( fetchContactSuccess (data) )
+        }
+     )
+     // СОСТОЯНИЕ В СЛУЧАЕ ОШИБКИ
+    .catch(error => dispatch( fetchContactError ( error ) ) );
+}
+
+
 export default {
     addContact,
-    deleteContact
-    // fetchContacts,
-    
-    
-};
-
-
-/////////////////////
+    deleteContact,
+    fetchContacts
+    };
 

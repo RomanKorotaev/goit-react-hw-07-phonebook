@@ -12,6 +12,12 @@ export const deleteContactReguest = createAction ('contacts/deleteContactReguest
 export const deleteContactSuccess = createAction ('contacts/deleteContactSuccess');
 export const deleteContactError = createAction ('contacts/deleteContactError');
 
+export const fetchContactReguest = createAction ('contacts/fetchContactReguest');
+export const fetchContactSuccess = createAction ('contacts/fetchContactSuccess');
+export const fetchContactError = createAction ('contacts/fetchContactError');
+
+
+
 
 
 // ------------- Redux Toolkit -------------

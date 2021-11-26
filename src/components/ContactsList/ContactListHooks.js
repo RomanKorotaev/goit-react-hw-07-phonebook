@@ -1,17 +1,24 @@
-import React from "react";
+import React, {useEffect} from "react";
 import s from "./ContactsList.module.css";
 import PropTypes from 'prop-types';
 import ContactHooks from '../Contact/ContactHooks'
-// import state from '../../redux/store'
 
-import {deleteContactMY} from '../../redux/actions'
 import contactsOperations from '../../redux/contacts-operations'
 import { connect } from "react-redux"; 
 
 
 
 
-function ContactsListHooks ({ contacts, onDelCont,  filterValue }) {
+
+function ContactsListHooks ({ contacts, onDeleteContact,  filterValue, fetchContacts }) {
+
+  useEffect(() => {
+    //Первая загрузка. Вытаскиваем из бекенда имеющиеся там контакты
+    fetchContacts ()
+  // loadFirstContacts();
+  console.log ('СРАБОТАЛ useEffect один раз при первой загрузке компонента ContactsList')
+  }, []);
+
 
   const getVisibleContact = () => {
     //Приводим значение фильтра к нижнему регистру (и в функции проверки имена тоже будем приводить к нижнему регистру)
@@ -26,11 +33,6 @@ let visibleContacts = getVisibleContact();
 
 
 
-  // console.log ( 'Лог стейта из ContactsList  - state.getState () ', state.getState () );
-
-  // console.log ( 'Лог стейта из ContactsList  -  visibleContacts ', visibleContacts );
-  
-
     return (
         <ul className= {s.ContactsListStyle}>
               {visibleContacts.length<1
@@ -38,7 +40,7 @@ let visibleContacts = getVisibleContact();
                 :   ( visibleContacts.map(({id, name, number}) => (
                         
                       <li  className= {s.item}  key = {id}>
-                            <ContactHooks name={name} number ={number} onDelete = {()=>onDelCont(id)} />
+                            <ContactHooks name={name} number ={number} onDelete = {()=>onDeleteContact(id)} />
                       </li>
                 )))
             }
@@ -68,9 +70,9 @@ ContactsListHooks.propTypes = {
 const mapDispatchToProps = dispatch => {
   return {
     //Здесь название локальной функции придумывавем сами
-    // onDelCont: (id)  => dispatch (deleteContactMY(id)),
-    onDelCont: (id)  => dispatch ( contactsOperations.deleteContact(id)),
-   
+    
+    onDeleteContact: (id)  => dispatch ( contactsOperations.deleteContact(id)),
+   fetchContacts: (id)  => dispatch ( contactsOperations.fetchContacts(id)),
   }
 } 
 

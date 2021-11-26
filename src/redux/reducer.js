@@ -22,6 +22,10 @@ import { addContactReguest,
 const state=[];
 
 const contactsReducer = createReducer ( state, {
+
+    //Поскольку при первой загрузке стейт с контактами пустой, то старое состоянее не распыляем, а просто поверх него записываем payload
+    [fetchContactSuccess]:  (state, action) => { return action.payload},
+
     [addContactSuccess]:  (state, action) => {
         console.log ("СРАБОТАЛ  редьюсер contact/add")
                         return  [...state, action.payload] 
