@@ -54,9 +54,9 @@ const stateFilter='';
 
 const loadingReducer = createReducer (false, {
 
-    // [fetchContactReguest]: ()=> true,
-    // [fetchContactSuccess]: ()=> false,
-    // [fetchContactError]: ()=> false,
+    [fetchContactReguest]: ()=> true,
+    [fetchContactSuccess]: ()=> false,
+    [fetchContactError]: ()=> false,
 
     [addContactReguest]: ()=> true,
     [addContactSuccess]: ()=> false,
@@ -70,4 +70,5 @@ const loadingReducer = createReducer (false, {
 export const rootReducer = combineReducers({
     contacts: contactsReducer,
     filterValue: filterReducer,
+    loading: loadingReducer
   });

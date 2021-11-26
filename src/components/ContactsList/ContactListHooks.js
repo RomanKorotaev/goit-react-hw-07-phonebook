@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 
 
 
-function ContactsListHooks ({ contacts, onDeleteContact,  filterValue, fetchContacts }) {
+function ContactsListHooks ({ contacts, onDeleteContact,  filterValue, fetchContacts,  isLoadingContacts }) {
 
   useEffect(() => {
     //Первая загрузка. Вытаскиваем из бекенда имеющиеся там контакты
@@ -34,17 +34,21 @@ let visibleContacts = getVisibleContact();
 
 
     return (
-        <ul className= {s.ContactsListStyle}>
-              {visibleContacts.length<1
-                ?   ( <p className={s.item}> List of contacts is empty </p> )
-                :   ( visibleContacts.map(({id, name, number}) => (
-                        
-                      <li  className= {s.item}  key = {id}>
-                            <ContactHooks name={name} number ={number} onDelete = {()=>onDeleteContact(id)} />
-                      </li>
-                )))
-            }
-        </ul>
+      <div>
+        { isLoadingContacts &&  <p className={s.item}> Wait for loading, please... </p> }
+
+          <ul className= {s.ContactsListStyle}>
+                {visibleContacts.length<1
+                  ?   ( <p className={s.item}> List of contacts is empty </p> )
+                  :   ( visibleContacts.map(({id, name, number}) => (
+                          
+                        <li  className= {s.item}  key = {id}>
+                              <ContactHooks name={name} number ={number} onDelete = {()=>onDeleteContact(id)} />
+                        </li>
+                  )))
+              }
+          </ul>
+        </div>
       );
 }
 
@@ -62,10 +66,12 @@ ContactsListHooks.propTypes = {
   const mapStateToProps = state => { 
 
     return {  contacts: state.contacts,
-              filterValue:state.filterValue
+              filterValue:state.filterValue,
+              /////////////
+              isLoadingContacts: state.loading
            }
-
 }
+
 
 const mapDispatchToProps = dispatch => {
   return {
