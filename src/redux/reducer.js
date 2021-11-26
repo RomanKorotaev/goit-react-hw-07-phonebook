@@ -14,11 +14,12 @@ import { addContactReguest,
     fetchContactError }  from './actions'
 
 
-const initialState = db;
-console.log ('!!!! initialState ', initialState)
+// const initialState = db;
+// console.log ('!!!! initialState ', initialState)
+// let state = initialState;
 
-
-let state = initialState;
+// Первоначальное значение списка контактов -пустой массив.
+const state=[];
 
 const contactsReducer = createReducer ( state, {
     [addContactSuccess]:  (state, action) => {
@@ -27,15 +28,19 @@ const contactsReducer = createReducer ( state, {
                     },
 
 
-    'contact/delete': (state, action) => {
+    // 'contact/delete': (state, action) => {
+        [deleteContactSuccess]: (state, action) => {
         console.log ("СРАБОТАЛ  редьюсер  contact/delete ")
         return [...state.filter (oneContact =>{ return oneContact.id !== action.payload })]   
                     }
 } )
 
 
- const filterReducer = createReducer ( state='', {
-    'filter/value': (state, action) => {
+// Первоначальное значение фильтра -пустая строка.
+const stateFilter='';
+
+ const filterReducer = createReducer ( stateFilter, {
+    'filter/value': (stateFilter, action) => {
         console.log ("СРАБОТАЛ редьюсер   filter/value")
                     return action.payload
                     
@@ -53,9 +58,9 @@ const loadingReducer = createReducer (false, {
     [addContactSuccess]: ()=> false,
     [addContactError]: ()=> false,
 
-    // [deleteContactReguest]: ()=> true,
-    // [deleteContactSuccess]: ()=> false,
-    // [deleteContactError]: ()=> false,
+    [deleteContactReguest]: ()=> true,
+    [deleteContactSuccess]: ()=> false,
+    [deleteContactError]: ()=> false,
 });
 
 export const rootReducer = combineReducers({

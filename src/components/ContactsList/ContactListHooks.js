@@ -5,7 +5,8 @@ import ContactHooks from '../Contact/ContactHooks'
 // import state from '../../redux/store'
 
 import {deleteContactMY} from '../../redux/actions'
-import { connect } from "react-redux";
+import contactsOperations from '../../redux/contacts-operations'
+import { connect } from "react-redux"; 
 
 
 
@@ -67,7 +68,9 @@ ContactsListHooks.propTypes = {
 const mapDispatchToProps = dispatch => {
   return {
     //Здесь название локальной функции придумывавем сами
-    onDelCont: (id)  => dispatch (deleteContactMY(id)),
+    // onDelCont: (id)  => dispatch (deleteContactMY(id)),
+    onDelCont: (id)  => dispatch ( contactsOperations.deleteContact(id)),
+   
   }
 } 
 
