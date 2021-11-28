@@ -2,20 +2,27 @@ import React, {useEffect} from "react";
 import s from "./ContactsList.module.css";
 import PropTypes from 'prop-types';
 import ContactHooks from '../Contact/ContactHooks'
+import { useDispatch } from "react-redux";
 
 import { deleteContact, fetchContactsV2} from '../../redux/contacts-operations'
 import { connect } from "react-redux"; 
 
 
-function ContactsListHooks ({ contacts, onDeleteContact,  filterValue, fetchContacts, fetchContactsV2,  isLoadingContacts }) {
+function ContactsListHooks ({ contacts, filterValue, isLoadingContacts }) {
+
+//  ================ REDUX ================ //
+const dispatch = useDispatch (); 
+//   ================ REDUX ================ //
+
 
   useEffect(() => {
     //Первая загрузка. Вытаскиваем из бекенда имеющиеся там контакты
-    fetchContactsV2();
+    dispatch (fetchContactsV2())
   
   console.log ('СРАБОТАЛ useEffect один раз при первой загрузке компонента ContactsList')
   }, []);
 
+  
 
   const getVisibleContact = () => {
     //Приводим значение фильтра к нижнему регистру (и в функции проверки имена тоже будем приводить к нижнему регистру)
@@ -37,7 +44,7 @@ let visibleContacts = getVisibleContact();
                   :   ( visibleContacts.map(({id, name, number}) => (
                           
                         <li  className= {s.item}  key = {id}>
-                              <ContactHooks name={name} number ={number} onDelete = {()=>onDeleteContact(id)} />
+                              <ContactHooks name={name} number ={number} onDelete = {()=>dispatch(deleteContact(id))} />
                         </li>
                   )))
               }
@@ -61,18 +68,9 @@ ContactsListHooks.propTypes = {
 
     return {  contacts: state.contacts,
               filterValue:state.filterValue,
-              /////////////
               isLoadingContacts: state.loading
            }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    //Здесь название локальной функции придумывавем сами
-  onDeleteContact: (id)  => dispatch ( deleteContact(id)),
-  fetchContactsV2: ()  => dispatch ( fetchContactsV2())
-  }
-} 
-
-  export default connect(mapStateToProps, mapDispatchToProps) (ContactsListHooks);
+  export default connect(mapStateToProps) (ContactsListHooks);
   

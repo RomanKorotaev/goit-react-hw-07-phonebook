@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 
 import shortid from 'shortid'
 
-function ContactFormHooks ({ onAdd, contacts}) {
+function ContactFormHooks ({ contacts}) {
  
     const [name, setName] =useState ('');
     const [number, setNumber] =useState ('');
@@ -35,8 +35,7 @@ const dispatch = useDispatch ();
        }
   }
 
-
-     // Это единый обработчик для разных элементов. Выбираем нужный по атрибуту name (задать каждому элементу свой)
+  // Это единый обработчик для разных элементов. Выбираем нужный по атрибуту name (задать каждому элементу свой)
   // и через вычисляемое (диннамическое) свойство объекта присваеваем нужному элементу нужное велью
   const handleChange = (e) => {
     const {name, value} = e.currentTarget;
@@ -73,15 +72,11 @@ const dispatch = useDispatch ();
        return;
           } else {
             // Диспатчим экшен
-            // onAdd (data);
-/////////
-            dispatch (addContact(data))
-             
+            dispatch (addContact(data))            
          }    
     // Очищаем поля формы
     reset();
   };
-
 
   // Метод очистки полей Формы
   const reset = () => {
@@ -90,13 +85,9 @@ const dispatch = useDispatch ();
     setNumber('');
   };
 
-
-// console.log ('СТЕЙТ state.getState():  ', state.getState() );
-
     return (
         
-        <form onSubmit={handleFormSubmit}>
-        
+        <form onSubmit={handleFormSubmit}> 
           <label className={s.nameTitle}>
             Name:
             <input
@@ -133,21 +124,8 @@ const dispatch = useDispatch ();
       );
 }
 
-
 const mapStateToProps = state => { 
   return {contacts: state.contacts}
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     //Здесь название локальной функции придумывавем сами
-//     // onAdd: data => dispatch (contactsOperations.addContact(data)),
-//     onAdd: data => dispatch (addContact(data)),
-//   }
-// } 
-
-
-// export default connect(mapStateToProps, mapDispatchToProps) (ContactFormHooks);
-
 
 export default connect(mapStateToProps) (ContactFormHooks);
