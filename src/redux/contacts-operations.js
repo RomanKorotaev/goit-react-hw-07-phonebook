@@ -51,22 +51,23 @@ export const fetchContactsV2 = createAsyncThunk (
         return contacts;
     } )
 
- export const addContact = newContact => dispatch => {
 
+ export const addContact = newContact => dispatch => {
     const newContactwithoutID = {
         name: newContact.name,
         number: newContact.number,
     };
     // НАЧАЛЬНОЕ СОСТОЯНИЕ
     dispatch (addContactReguest);
-
-    axios
-        .post('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts', newContactwithoutID)
-        .then (({ data }) =>
-        // СОСТОЯНИЕ В СЛУЧАЕ УСПЕХА
-                 dispatch ( addContactSuccess (data) ))
-        .catch (error=>  dispatch(addContactError ( error ) ) )
+        axios
+            .post('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts', newContactwithoutID)
+            .then (({ data }) =>
+            // СОСТОЯНИЕ В СЛУЧАЕ УСПЕХА
+                    dispatch ( addContactSuccess (data) ))
+            .catch (error=>  dispatch(addContactError ( error ) ) )
 }
+
+
 
 export const deleteContact = contactId => dispatch => {
     dispatch (deleteContactReguest());

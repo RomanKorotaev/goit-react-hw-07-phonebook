@@ -25,10 +25,7 @@ function ContactsListHooks ({ contacts, onDeleteContact,  filterValue, fetchCont
     return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
   }
 
-
 let visibleContacts = getVisibleContact();
-
-
 
     return (
       <div>
@@ -68,7 +65,6 @@ ContactsListHooks.propTypes = {
               isLoadingContacts: state.loading
            }
 }
-
 
 const mapDispatchToProps = dispatch => {
   return {

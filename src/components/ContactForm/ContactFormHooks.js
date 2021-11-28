@@ -2,9 +2,9 @@ import React, { useState} from "react";
 import s from "./ContactForm.module.css";
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-// import  {addContact} from '../../redux/actions';
 // import contactsOperations from '../../redux/contacts-operations'
 import {addContact} from '../../redux/contacts-operations'
+import { useDispatch } from "react-redux";
 
 import shortid from 'shortid'
 
@@ -12,6 +12,11 @@ function ContactFormHooks ({ onAdd, contacts}) {
  
     const [name, setName] =useState ('');
     const [number, setNumber] =useState ('');
+
+
+    //  ================ REDUX ================ //
+const dispatch = useDispatch (); 
+    //  ================ REDUX ================ //
 
 
      // Функция о выводе предупреждения, если пользователь хочет добавить контакты, имена которых уже есть в телефонной книге.
@@ -68,7 +73,9 @@ function ContactFormHooks ({ onAdd, contacts}) {
        return;
           } else {
             // Диспатчим экшен
-            onAdd (data);
+            // onAdd (data);
+/////////
+            dispatch (addContact(data))
              
          }    
     // Очищаем поля формы
@@ -82,8 +89,6 @@ function ContactFormHooks ({ onAdd, contacts}) {
     setName('');
     setNumber('');
   };
-
- 
 
 
 // console.log ('СТЕЙТ state.getState():  ', state.getState() );
@@ -133,13 +138,16 @@ const mapStateToProps = state => {
   return {contacts: state.contacts}
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    //Здесь название локальной функции придумывавем сами
-    // onAdd: data => dispatch (contactsOperations.addContact(data)),
-    onAdd: data => dispatch (addContact(data)),
-  }
-} 
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     //Здесь название локальной функции придумывавем сами
+//     // onAdd: data => dispatch (contactsOperations.addContact(data)),
+//     onAdd: data => dispatch (addContact(data)),
+//   }
+// } 
 
 
-export default connect(mapStateToProps, mapDispatchToProps) (ContactFormHooks);
+// export default connect(mapStateToProps, mapDispatchToProps) (ContactFormHooks);
+
+
+export default connect(mapStateToProps) (ContactFormHooks);

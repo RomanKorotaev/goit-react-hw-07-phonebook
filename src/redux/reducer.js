@@ -27,11 +27,12 @@ const contactsReducer = createReducer ( state, {
     //     return action.payload},
 
     [fetchContactsV2.fulfilled]: (_, action) => { 
-        return action.payload.data},
+        return action.payload.data
+    },
 
     [addContactSuccess]:  (state, action) => {
-                        return  [...state, action.payload] 
-                    },
+                return  [...state, action.payload] 
+            },
 
     // 'contact/delete': (state, action) => {
         [deleteContactSuccess]: (state, action) => {
