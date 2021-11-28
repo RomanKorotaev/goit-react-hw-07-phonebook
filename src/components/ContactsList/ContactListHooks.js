@@ -3,19 +3,16 @@ import s from "./ContactsList.module.css";
 import PropTypes from 'prop-types';
 import ContactHooks from '../Contact/ContactHooks'
 
-import contactsOperations from '../../redux/contacts-operations'
+import { deleteContact, fetchContactsV2} from '../../redux/contacts-operations'
 import { connect } from "react-redux"; 
 
 
-
-
-
-function ContactsListHooks ({ contacts, onDeleteContact,  filterValue, fetchContacts,  isLoadingContacts }) {
+function ContactsListHooks ({ contacts, onDeleteContact,  filterValue, fetchContacts, fetchContactsV2,  isLoadingContacts }) {
 
   useEffect(() => {
     //Первая загрузка. Вытаскиваем из бекенда имеющиеся там контакты
-    fetchContacts ()
-  // loadFirstContacts();
+    fetchContactsV2();
+  
   console.log ('СРАБОТАЛ useEffect один раз при первой загрузке компонента ContactsList')
   }, []);
 
@@ -76,9 +73,8 @@ ContactsListHooks.propTypes = {
 const mapDispatchToProps = dispatch => {
   return {
     //Здесь название локальной функции придумывавем сами
-    
-    onDeleteContact: (id)  => dispatch ( contactsOperations.deleteContact(id)),
-   fetchContacts: (id)  => dispatch ( contactsOperations.fetchContacts(id)),
+  onDeleteContact: (id)  => dispatch ( deleteContact(id)),
+  fetchContactsV2: ()  => dispatch ( fetchContactsV2())
   }
 } 
 

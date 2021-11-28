@@ -3,8 +3,8 @@ import s from "./ContactForm.module.css";
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 // import  {addContact} from '../../redux/actions';
-import contactsOperations from '../../redux/contacts-operations'
-
+// import contactsOperations from '../../redux/contacts-operations'
+import {addContact} from '../../redux/contacts-operations'
 
 import shortid from 'shortid'
 
@@ -136,7 +136,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     //Здесь название локальной функции придумывавем сами
-    onAdd: data => dispatch (contactsOperations.addContact(data)),
+    // onAdd: data => dispatch (contactsOperations.addContact(data)),
+    onAdd: data => dispatch (addContact(data)),
   }
 } 
 

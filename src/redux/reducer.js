@@ -13,10 +13,8 @@ import { addContactReguest,
     fetchContactSuccess,
     fetchContactError }  from './actions'
 
-
-// const initialState = db;
-// console.log ('!!!! initialState ', initialState)
-// let state = initialState;
+    import {fetchContactsV2} from './contacts-operations'
+    
 
 // Первоначальное значение списка контактов -пустой массив.
 const state=[];
@@ -24,18 +22,20 @@ const state=[];
 const contactsReducer = createReducer ( state, {
 
     //Поскольку при первой загрузке стейт с контактами пустой, то старое состоянее не распыляем, а просто поверх него записываем payload
-    [fetchContactSuccess]:  (state, action) => { return action.payload},
+    // [fetchContactSuccess]:  (state, action) => { 
+    //     console.log ('TEST: action.payload after - fetchContactSuccess', action.payload)
+    //     return action.payload},
+
+    [fetchContactsV2.fulfilled]: (_, action) => { 
+        return action.payload.data},
 
     [addContactSuccess]:  (state, action) => {
-        console.log ("СРАБОТАЛ  редьюсер contact/add")
                         return  [...state, action.payload] 
                     },
 
-
     // 'contact/delete': (state, action) => {
         [deleteContactSuccess]: (state, action) => {
-        console.log ("СРАБОТАЛ  редьюсер  contact/delete ")
-        return [...state.filter (oneContact =>{ return oneContact.id !== action.payload })]   
+             return [...state.filter (oneContact =>{ return oneContact.id !== action.payload })]   
                     }
 } )
 
@@ -44,8 +44,7 @@ const contactsReducer = createReducer ( state, {
 const stateFilter='';
 
  const filterReducer = createReducer ( stateFilter, {
-    'filter/value': (stateFilter, action) => {
-        console.log ("СРАБОТАЛ редьюсер   filter/value")
+    'filter/value': (_, action) => {
                     return action.payload
                     
      }
@@ -54,9 +53,12 @@ const stateFilter='';
 
 const loadingReducer = createReducer (false, {
 
-    [fetchContactReguest]: ()=> true,
-    [fetchContactSuccess]: ()=> false,
-    [fetchContactError]: ()=> false,
+    // [fetchContactReguest]: ()=> true,
+    // [fetchContactSuccess]: ()=> false,
+    //  [fetchContactError]: ()=> false,
+
+    [fetchContactsV2.panding] :()=> true,
+     [fetchContactsV2.rejected]: ()=> false,
 
     [addContactReguest]: ()=> true,
     [addContactSuccess]: ()=> false,
