@@ -2,17 +2,23 @@ import React, {useEffect} from "react";
 import s from "./ContactsList.module.css";
 import PropTypes from 'prop-types';
 import ContactHooks from '../Contact/ContactHooks'
+
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { deleteContact, fetchContactsV2} from '../../redux/contacts-operations'
-import { connect } from "react-redux"; 
+import { deleteContact, fetchContactsV2} from '../../redux/contacts-operations'; 
 
+ 
+function ContactsListHooks () {
 
-function ContactsListHooks ({ contacts, filterValue, isLoadingContacts }) {
+    //  ================ REDUX ================ //
+    const dispatch = useDispatch (); 
 
-//  ================ REDUX ================ //
-const dispatch = useDispatch (); 
-//   ================ REDUX ================ //
+    const contacts = useSelector (state  => state.contacts);
+    const filterValue = useSelector (state  => state.filterValue);
+    const isLoadingContacts = useSelector (state  => state.loading);
+                
+    //   ================ REDUX ================ //
 
 
   useEffect(() => {
@@ -64,13 +70,5 @@ ContactsListHooks.propTypes = {
     ), 
   };
 
-  const mapStateToProps = state => { 
 
-    return {  contacts: state.contacts,
-              filterValue:state.filterValue,
-              isLoadingContacts: state.loading
-           }
-}
-
-  export default connect(mapStateToProps) (ContactsListHooks);
-  
+  export default (ContactsListHooks);

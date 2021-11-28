@@ -4,19 +4,22 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 // import contactsOperations from '../../redux/contacts-operations'
 import {addContact} from '../../redux/contacts-operations'
+
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import shortid from 'shortid'
 
-function ContactFormHooks ({ contacts}) {
+function ContactFormHooks () {
  
     const [name, setName] =useState ('');
     const [number, setNumber] =useState ('');
 
 
-    //  ================ REDUX ================ //
-const dispatch = useDispatch (); 
-    //  ================ REDUX ================ //
+        //  ================ REDUX ================ //
+    const dispatch = useDispatch (); 
+    const contacts = useSelector (state  => state.contacts);
+        //  ================ REDUX ================ //
 
 
      // Функция о выводе предупреждения, если пользователь хочет добавить контакты, имена которых уже есть в телефонной книге.
@@ -124,8 +127,5 @@ const dispatch = useDispatch ();
       );
 }
 
-const mapStateToProps = state => { 
-  return {contacts: state.contacts}
-}
 
-export default connect(mapStateToProps) (ContactFormHooks);
+export default  (ContactFormHooks);
