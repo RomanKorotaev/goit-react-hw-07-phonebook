@@ -3,6 +3,8 @@ import s from "./ContactsList.module.css";
 import PropTypes from 'prop-types';
 import ContactHooks from '../Contact/ContactHooks'
 
+import { getContacts, getFilterValue, getLoading } from '../../redux/selectors'
+
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -14,9 +16,13 @@ function ContactsListHooks () {
     //  ================ REDUX ================ //
     const dispatch = useDispatch (); 
 
-    const contacts = useSelector (state  => state.contacts);
-    const filterValue = useSelector (state  => state.filterValue);
-    const isLoadingContacts = useSelector (state  => state.loading);
+    // Переписываем на селекторы:
+    // const contacts = useSelector (state  => state.contacts);
+    // const filterValue = useSelector (state  => state.filterValue);
+    // const isLoadingContacts = useSelector (state  => state.loading);
+    const contacts = useSelector (getContacts);
+    const filterValue = useSelector (getFilterValue);
+    const isLoadingContacts = useSelector (getLoading);
                 
     //   ================ REDUX ================ //
 
