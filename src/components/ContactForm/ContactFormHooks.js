@@ -1,9 +1,8 @@
 import React, { useState} from "react";
 import s from "./ContactForm.module.css";
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
-// import contactsOperations from '../../redux/contacts-operations'
-import {addContact} from '../../redux/contacts-operations'
+
+import { addContactV2} from '../../redux/contacts-operations'
 
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -73,7 +72,8 @@ function ContactFormHooks () {
        return;
           } else {
             // Диспатчим экшен
-            dispatch (addContact(data))            
+             dispatch (addContactV2(data)) 
+            
          }    
     // Очищаем поля формы
     reset();

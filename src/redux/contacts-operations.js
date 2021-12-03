@@ -1,16 +1,33 @@
 import axios from 'axios'
-import actions from './actions'
-import { addContactReguest,
-    addContactSuccess,
-    addContactError,
-    deleteContactReguest,
-    deleteContactSuccess,
-    deleteContactError,
-    fetchContactReguest,
-    fetchContactSuccess,
-    fetchContactError
- }  from './actions'
+
  import { createAsyncThunk } from '@reduxjs/toolkit'
+
+
+export const fetchContactsV2 = createAsyncThunk (
+    'contacts/fetchContacts',
+    async ()=> {
+        const contacts = await  axios.get ('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts');
+        console.log ("777 fetchContactsV2 = ", fetchContactsV2 )
+        return contacts.data;
+    } )
+
+export const addContactV2 = createAsyncThunk (
+    'contacts/addContact',
+    async (newContact)=> {
+        const contacts = await  axios.post('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts', newContact);
+        console.log ("777 addContactV2 = ", addContactV2 )
+        return contacts.data;
+    } )
+
+
+export const deleteContactV2 = createAsyncThunk (
+    'contacts/deleteContact',
+    async (contactId)=> {
+        const contacts = await  axios.delete(`https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts/${contactId}`);
+        console.log ("777 deleteContactV2 = ", deleteContactV2 )
+        return contactId;
+    } )
+
 
 
  
@@ -41,45 +58,3 @@ import { addContactReguest,
 //         dispatch( fetchContactError ( error ) );
 //     }
 // }
-
-
-export const fetchContactsV2 = createAsyncThunk (
-    'contacts/fetchContacts',
-    async ()=> {
-        const contacts = await  axios.get ('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts');
-        console.log ("777 fetchContactsV2 = ", fetchContactsV2 )
-        return contacts.data;
-    } )
-
-
- export const addContact = newContact => dispatch => {
-   
-    // НАЧАЛЬНОЕ СОСТОЯНИЕ
-    dispatch (addContactReguest);
-        axios
-            .post('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts', newContact)
-            .then (({ data }) =>
-            // СОСТОЯНИЕ В СЛУЧАЕ УСПЕХА
-                    dispatch ( addContactSuccess (data) ))
-            .catch (error=>  dispatch(addContactError ( error ) ) )
-}
-
-
-// export const addContactV2 = createAsyncThunk (
-//     'contacts/addContact',
-//     async (newContact)=> {
-//         const contacts = await  axios.get ('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts');
-//         console.log ("777 fetchContactsV2 = ", fetchContactsV2 )
-//         return contacts.data;
-//     } )
-
-
-
-export const deleteContact = contactId => dispatch => {
-    dispatch (deleteContactReguest());
-
-    axios.delete(`https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts/${contactId}`)
-        .then ( ()=> dispatch (deleteContactSuccess(contactId)) )
-        .catch (error => dispatch (deleteContactError (error)) )
-}
-

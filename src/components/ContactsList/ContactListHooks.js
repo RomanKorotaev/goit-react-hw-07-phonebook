@@ -8,7 +8,7 @@ import { getContacts, getFilterValue, getLoading } from '../../redux/selectors'
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-import { deleteContact, fetchContactsV2} from '../../redux/contacts-operations'; 
+import { fetchContactsV2, deleteContactV2} from '../../redux/contacts-operations'; 
 
  
 function ContactsListHooks () {
@@ -56,7 +56,7 @@ let visibleContacts = getVisibleContact();
                   :   ( visibleContacts.map(({id, name, number}) => (
                           
                         <li  className= {s.item}  key = {id}>
-                              <ContactHooks name={name} number ={number} onDelete = {()=>dispatch(deleteContact(id))} />
+                              <ContactHooks name={name} number ={number} onDelete = {()=>dispatch(deleteContactV2(id))} />
                         </li>
                   )))
               }
