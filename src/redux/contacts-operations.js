@@ -53,19 +53,25 @@ export const fetchContactsV2 = createAsyncThunk (
 
 
  export const addContact = newContact => dispatch => {
-    const newContactwithoutID = {
-        name: newContact.name,
-        number: newContact.number,
-    };
+   
     // НАЧАЛЬНОЕ СОСТОЯНИЕ
     dispatch (addContactReguest);
         axios
-            .post('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts', newContactwithoutID)
+            .post('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts', newContact)
             .then (({ data }) =>
             // СОСТОЯНИЕ В СЛУЧАЕ УСПЕХА
                     dispatch ( addContactSuccess (data) ))
             .catch (error=>  dispatch(addContactError ( error ) ) )
 }
+
+
+// export const addContactV2 = createAsyncThunk (
+//     'contacts/addContact',
+//     async (newContact)=> {
+//         const contacts = await  axios.get ('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts');
+//         console.log ("777 fetchContactsV2 = ", fetchContactsV2 )
+//         return contacts.data;
+//     } )
 
 
 

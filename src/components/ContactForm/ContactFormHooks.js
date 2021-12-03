@@ -8,7 +8,6 @@ import {addContact} from '../../redux/contacts-operations'
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-import shortid from 'shortid'
 
 function ContactFormHooks () {
  
@@ -62,7 +61,6 @@ function ContactFormHooks () {
    
     // Записываем  переменные имени и телефона, напечатанные в форме, в объект
     const data = {
-      id: shortid.generate(),
       name: name,
       number: number,
     }
