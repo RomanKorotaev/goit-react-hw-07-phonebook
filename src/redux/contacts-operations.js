@@ -48,7 +48,7 @@ export const fetchContactsV2 = createAsyncThunk (
     async ()=> {
         const contacts = await  axios.get ('https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts');
         console.log ("777 fetchContactsV2 = ", fetchContactsV2 )
-        return contacts;
+        return contacts.data;
     } )
 
 

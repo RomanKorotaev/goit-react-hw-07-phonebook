@@ -27,7 +27,7 @@ const contactsReducer = createReducer ( state, {
     //     return action.payload},
 
     [fetchContactsV2.fulfilled]: (_, action) => { 
-        return action.payload.data
+        return action.payload
     },
 
     [addContactSuccess]:  (state, action) => {
