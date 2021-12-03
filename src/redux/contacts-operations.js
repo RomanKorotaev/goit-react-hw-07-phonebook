@@ -23,7 +23,7 @@ export const addContactV2 = createAsyncThunk (
 export const deleteContactV2 = createAsyncThunk (
     'contacts/deleteContact',
     async (contactId)=> {
-        const contacts = await  axios.delete(`https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts/${contactId}`);
+        const data = await  axios.delete(`https://619a41019022ea0017a7b0ae.mockapi.io/api_phonebook/v1/contacts/${contactId}`);
         console.log ("777 deleteContactV2 = ", deleteContactV2 )
         return contactId;
     } )
